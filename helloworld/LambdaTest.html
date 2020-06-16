@@ -1,0 +1,29 @@
+<html>
+
+
+
+
+<body>
+
+<p id="p_id">
+
+</p>
+<script>
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+        	alert(xmlhttp.responseText);
+            document.getElementById("p_id").innetHTML = xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET", "https://4ci4s6m0el.execute-api.us-east-1.amazonaws.com/default/hellowWorld?param=1", false );
+    xmlhttp.send();    
+
+</script>
+
+<body>
+</html?
