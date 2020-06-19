@@ -14,7 +14,7 @@ public class InventoryService implements RequestHandler<Object, List<Inventory>>
 	
 		LambdaLogger LOGGER = context.getLogger();
 		LOGGER.log("STARTING INVENTORY SERVICE");
-		return new InventoryDAO().getInventories();
+		return new InventoryDAO().getInventories(context);
 	}
 
 

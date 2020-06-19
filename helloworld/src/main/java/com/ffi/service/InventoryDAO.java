@@ -7,18 +7,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amazonaws.services.lambda.runtime.Context;
 import com.ffi.model.Inventory;
 
 public class InventoryDAO {
 
 	public static void main(String arg[]) throws Exception {
 
-		System.out.println(""+new InventoryDAO().getInventories());
+		System.out.println(""+new InventoryDAO().getInventories1());
 
 	}
 
-	public List<Inventory> getInventories1(){
+	public List<Inventory> getInventories(Context context){
 
+		
 		List<Inventory> inventoryList = new ArrayList<Inventory>();
 
 		try {
@@ -39,13 +41,14 @@ public class InventoryDAO {
 		stmt.close();
 		conn.close();
 		}catch(Exception e) {
-			
+			context.getLogger().log(e.toString());
+			e.printStackTrace();
 		}
 
 		return inventoryList;
 	}
 	
-	public List<Inventory> getInventories(){
+	public List<Inventory> getInventories1(){
 
 		List<Inventory> inventoryList = new ArrayList<Inventory>();
 
