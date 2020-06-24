@@ -1,0 +1,3 @@
+com\ffi\service\InventoryService.class
+com\ffi\service\InventoryDAO.class
+com\ffi\model\Inventory.class

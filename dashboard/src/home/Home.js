@@ -1,32 +1,38 @@
 import React, { Component } from 'react';
 import UserRow from '../user/UserRow';
-
+import axios from 'axios';
 class Home extends Component {
-  state = {
-    isOpen: false,
-    data: 
-         [
-            {
-               "id":1,
-               "firstname":"Narender",
-               "lastname":"Singh",
-               "city":"Tampa"
-            },
-            {
-               "id":2,
-               "firstname":"Baljinder",
-               "lastname":"Sran",
-               "city":"Dallas"
-            },
-            {
-               "id":3,
-               "firstname":"Yashmeen",
-               "lastname":"Kaur",
-               "city":"Plano"
-            }
-         ]
-
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      isOpen: false,
+      data: 
+           [
+              {
+                 "id":1,
+                 "firstname":"Narender",
+                 "lastname":"Singh",
+                 "city":"Tampa"
+              },
+              {
+                 "id":2,
+                 "firstname":"Baljinder",
+                 "lastname":"Sran",
+                 "city":"Dallas"
+              },
+              {
+                 "id":3,
+                 "firstname":"Yashmeen",
+                 "lastname":"Kaur",
+                 "city":"Plano"
+              }
+           ]
+    };
+    axios.get("https://tr8k8hwxie.execute-api.us-east-2.amazonaws.com/default/ffigetinventories").then(resp=>{console.log('NARENDER SINGH',resp.data);
+      this.setState({data: resp.data});
+  });
+  }
+  
   
   toggleCollapse = () => {
     this.setState({ isOpen: !this.state.isOpen });
@@ -43,9 +49,10 @@ class Home extends Component {
      <thead class="blue white-text">
        <tr>
          <th scope="col">#</th>
-         <th scope="col">FirstName</th>
-         <th scope="col">LastName</th>
-         <th scope="col">City</th>
+         <th scope="col">Inventory Name</th>
+         <th scope="col">Description</th>
+         <th scope="col">LOB</th>
+         <th scope="col">SUBLOB</th>
        </tr>
      </thead>
      <tbody>

@@ -12,9 +12,10 @@ render(){
     return(
     <tr>
     <td>{this.props.data.id}</td>
-    <td>{this.props.data.firstname}</td>
-    <td>{this.props.data.lastname}</td>
-    <td>{this.props.data.city}</td>
+    <td>{this.props.data.name}</td>
+    <td>{this.props.data.desc}</td>
+    <td>{this.props.data.lob}</td>
+    <td>{this.props.data.sublob}</td>
     </tr>);
 }
 

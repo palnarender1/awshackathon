@@ -76,9 +76,6 @@ class App extends Component {
     <Route path="/about/" component={About} />
       </div>
     </Router>
-    {Home.state}
-
-    <button onClick={this.testMethod}>NARENDER SINGH</button>
       </div>
     );
   }
