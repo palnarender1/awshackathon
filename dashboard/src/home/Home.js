@@ -16,6 +16,7 @@ class Home extends Component {
   }
   
   
+  
   toggleCollapse = () => {
     this.setState({ isOpen: !this.state.isOpen });
   }
@@ -42,10 +43,18 @@ class Home extends Component {
          <th scope="col">Description</th>
          <th scope="col">LOB</th>
          <th scope="col">SUBLOB</th>
+         <th scope="col">&nbsp;</th>
        </tr>
      </thead>
      <tbody>
-      {this.state.data.map((person,i) => <UserRow  key = {i} data={person}/>)}
+      {this.state.data.map((person,i) =>  <tr>
+    <td>{person.id}</td>
+    <td>{person.name}</td>
+    <td>{person.desc}</td>
+    <td>{person.lob}</td>
+    <td>{person.sublob}</td>
+    <td onClick={()=>{this.props.openEditModal(person);}}>EDIT</td>
+    </tr> )} 
      </tbody>
    </table>
    

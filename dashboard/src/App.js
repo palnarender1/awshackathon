@@ -29,6 +29,7 @@ class App extends Component {
     this.updateLob = this.updateLob.bind(this);
     this.updateDesc = this.updateDesc.bind(this);
     this.homeModal = null;
+    this.openEditModal = this.openEditModal.bind(this);
   }
   addInventory(){
     axios.post(" https://cl5f1o14w3.execute-api.us-east-2.amazonaws.com/ffistage",this.state.inventory).then(resp=>{
@@ -37,6 +38,12 @@ class App extends Component {
     });
     this.setState({ modal: false });
 
+  }
+
+  openEditModal(record){
+    this.setState({inventory:record});
+    this.setState({ modal: true });
+    
   }
 
   updateName(event){
@@ -74,7 +81,7 @@ class App extends Component {
           <div>
             <MDBNavbar color="blue" dark expand="md">
               <MDBNavbarBrand>
-                <strong className="white-text">Firmwide Fiduciary Inventory</strong>
+                <strong className="white-text">Firmwide Inventory</strong>
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.toggleCollapse} />
               <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
@@ -115,17 +122,17 @@ class App extends Component {
              
               this.homeModal = homeModal;
               console.log('HOME MODAL',this.homeModal);
-            }}></Home>
+            }} openEditModal={this.openEditModal}></Home>
 
             <MDBContainer >
-              <MDBBtn color="blue" onClick={this.toggle}>ADD Inventory</MDBBtn>
+          <MDBBtn color="blue" onClick={this.toggle}> ADD Inventory</MDBBtn>
               <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-                <MDBModalHeader toggle={this.toggle}>Add Inventory</MDBModalHeader>
+                <MDBModalHeader toggle={this.toggle}>{ (this.state.inventory.id ===0)? 'ADD Inventory' : 'Edit Inventory ' + this.state.inventory.id}</MDBModalHeader>
                 <MDBModalBody>
                   <table><tr><td style={{textAlign: 'left'}}>Name:</td><td><input type="text" value={this.state.inventory.name}  onChange={this.updateName}/></td></tr>
-                  <tr><td style={{textAlign: 'left'}}>Description:</td><td><input type="text"  onChange={this.updateDesc}/></td></tr>
-                  <tr><td style={{textAlign: 'left'}}>LOB</td><td><input type="text"  onChange={this.updateLob}/></td></tr>
-                  <tr><td style={{textAlign: 'left'}}>SUBLOB</td><td><input type="text"  onChange={this.updateSubLob}/></td></tr>
+                  <tr><td style={{textAlign: 'left'}}>Description:</td><td><input type="text" value={this.state.inventory.desc}  onChange={this.updateDesc}/></td></tr>
+                  <tr><td style={{textAlign: 'left'}}>LOB</td><td><input type="text" value={this.state.inventory.lob}  onChange={this.updateLob}/></td></tr>
+                  <tr><td style={{textAlign: 'left'}}>SUBLOB</td><td><input type="text" value={this.state.inventory.sublob}  onChange={this.updateSubLob}/></td></tr>
                   </table>
                     </MDBModalBody>
                 <MDBModalFooter>
@@ -142,10 +149,9 @@ class App extends Component {
             <MDBContainer fluid className="text-center text-md-left">
               <MDBRow>
                 <MDBCol md="5">
-                  <h5 className="title">Note:</h5>
                   <p>
-                    The 'Active' view represents a live working draft and is subject to change. For the lastest published inventory, please refer
-                    to Fiduciary and Conflict of Interest Homepage via the links.
+                    Note: The 'Active' view represents a live working draft and is subject to change. For the lastest published inventory, please refer
+                    to Firmwide Inventory Homepage via the links.
                   </p>
                 </MDBCol>
                 <MDBCol md="6">
