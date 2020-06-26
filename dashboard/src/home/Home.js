@@ -39,7 +39,7 @@ class Home extends Component {
   }
   render() {
     return (
-     <div style={{paddingTop:"100px"}} class="container">
+     <div style={{paddingTop:"40px"}} class="container">
        <div class="row"><div class="col-sm-10">&nbsp;</div></div>
        <div class="row">
  

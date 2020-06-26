@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import About from './about/About';
 import Home from './home/Home';
+import Filter from './filter/Filter';
 import icon from '../public/favicon.ico'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube, faFacebook, faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
@@ -17,7 +18,7 @@ class App extends Component {
     super(props);
     this.testMethod = this.testMethod.bind(this);
   }
-  state = {
+  state = { 
     isOpen: false,
     modal: false
   };
@@ -77,6 +78,7 @@ class App extends Component {
                 </MDBNavbarNav>
               </MDBCollapse>
             </MDBNavbar>
+            <Filter> </Filter>
             <Home></Home>
 
             <MDBContainer >
