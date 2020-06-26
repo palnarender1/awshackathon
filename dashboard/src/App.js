@@ -7,6 +7,7 @@ import Home from './home/Home';
 import Filter from './filter/Filter';
 import icon from '../public/favicon.ico'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from 'axios';
 import { faYoutube, faFacebook, faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import {
   MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline,
@@ -17,16 +18,47 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.testMethod = this.testMethod.bind(this);
+    this.state = { 
+      isOpen: false,
+      modal: false,
+      inventory:{ id:0,name:'tesfsf',desc:'fasfadf',lob:null,sublob:null}
+    };
+    this.addInventory = this.addInventory.bind(this);
+    this.updateName = this.updateName.bind(this);
+    this.updateSubLob = this.updateSubLob.bind(this);
+    this.updateLob = this.updateLob.bind(this);
+    this.updateDesc = this.updateDesc.bind(this);
+    this.homeModal = null;
   }
-  state = { 
-    isOpen: false,
-    modal: false
-  };
+  addInventory(){
+    axios.post(" https://cl5f1o14w3.execute-api.us-east-2.amazonaws.com/ffistage",this.state.inventory).then(resp=>{
+      console.log('Record Added Successfully',resp);
+      this.homeModal.updateGrid();
+    });
+    this.setState({ modal: false });
+
+  }
+
+  updateName(event){
+    this.setState({inventory: {...this.state.inventory, name:event.target.value}});
+  }
+  updateLob(event){
+    this.setState({inventory: {...this.state.inventory, lob:event.target.value}});
+  }
+  updateSubLob(event){
+    this.setState({inventory: {...this.state.inventory, sublob:event.target.value}});
+  }
+  updateDesc(event){
+    this.setState({inventory: {...this.state.inventory, desc:event.target.value}});
+  }
+
+ 
   testMethod() {
     this.About.setState({ test: 'test' });
 
   }
   toggle = () => {
+    this.setState({inventory:{ id:0,name:null,desc:null,lob:null,sublob:null}});
     this.setState({
       modal: !this.state.modal
     });
@@ -79,28 +111,26 @@ class App extends Component {
               </MDBCollapse>
             </MDBNavbar>
             <Filter> </Filter>
-            <Home></Home>
+            <Home ref={(homeModal)=>{
+             
+              this.homeModal = homeModal;
+              console.log('HOME MODAL',this.homeModal);
+            }}></Home>
 
             <MDBContainer >
-              <MDBBtn color="blue" onClick={this.toggle}>Add Inventory</MDBBtn>
+              <MDBBtn color="blue" onClick={this.toggle}>ADD Inventory</MDBBtn>
               <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
                 <MDBModalHeader toggle={this.toggle}>Add Inventory</MDBModalHeader>
                 <MDBModalBody>
-                  Add Not Available At This Time
+                  <table><tr><td style={{textAlign: 'left'}}>Name:</td><td><input type="text" value={this.state.inventory.name}  onChange={this.updateName}/></td></tr>
+                  <tr><td style={{textAlign: 'left'}}>Description:</td><td><input type="text"  onChange={this.updateDesc}/></td></tr>
+                  <tr><td style={{textAlign: 'left'}}>LOB</td><td><input type="text"  onChange={this.updateLob}/></td></tr>
+                  <tr><td style={{textAlign: 'left'}}>SUBLOB</td><td><input type="text"  onChange={this.updateSubLob}/></td></tr>
+                  </table>
                     </MDBModalBody>
                 <MDBModalFooter>
-                  <MDBBtn color="blue" onClick={this.toggle}>Close</MDBBtn>
-                </MDBModalFooter>
-              </MDBModal>
-
-              <MDBBtn color="blue" onClick={this.toggle}>Edit Inventory</MDBBtn>
-              <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-                <MDBModalHeader toggle={this.toggle}>Edit Inventory</MDBModalHeader>
-                <MDBModalBody>
-                  Edit Not Available At This Time
-                    </MDBModalBody>
-                <MDBModalFooter>
-                  <MDBBtn color="blue" onClick={this.toggle}>Close</MDBBtn>
+                 <MDBBtn color="blue" onClick={this.addInventory}>Save</MDBBtn>
+                 <MDBBtn color="blue" onClick={this.toggle}>Close</MDBBtn>
                 </MDBModalFooter>
               </MDBModal>
             </MDBContainer>

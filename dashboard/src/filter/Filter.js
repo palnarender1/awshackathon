@@ -25,7 +25,7 @@ class Filter extends Component {
     <div className="container" style={{paddingTop:"40px"}}>
     <div class="card">
 
- 		<h5 class="card-header info-color white-text text-center py-4">
+ 		<h5 class="card-header blue white-text text-center">
     		<strong>Filter</strong>
   		</h5>
 		<div className="row mx-md-n5">

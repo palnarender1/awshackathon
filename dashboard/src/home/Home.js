@@ -8,24 +8,6 @@ class Home extends Component {
       isOpen: false,
       data: 
            [
-              {
-                 "id":1,
-                 "firstname":"Narender",
-                 "lastname":"Singh",
-                 "city":"Tampa"
-              },
-              {
-                 "id":2,
-                 "firstname":"Baljinder",
-                 "lastname":"Sran",
-                 "city":"Dallas"
-              },
-              {
-                 "id":3,
-                 "firstname":"Yashmeen",
-                 "lastname":"Kaur",
-                 "city":"Plano"
-              }
            ]
     };
     axios.get("https://tr8k8hwxie.execute-api.us-east-2.amazonaws.com/default/ffigetinventories").then(resp=>{console.log('NARENDER SINGH',resp.data);
@@ -36,6 +18,13 @@ class Home extends Component {
   
   toggleCollapse = () => {
     this.setState({ isOpen: !this.state.isOpen });
+  }
+
+
+  updateGrid = ()=> {
+    axios.get("https://tr8k8hwxie.execute-api.us-east-2.amazonaws.com/default/ffigetinventories").then(resp=>{console.log('NARENDER SINGH',resp.data);
+      this.setState({data: resp.data});
+  });
   }
   render() {
     return (
