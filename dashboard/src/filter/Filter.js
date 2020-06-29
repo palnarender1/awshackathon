@@ -22,24 +22,24 @@ class Filter extends Component {
 
   render() {
     return (
-    <div className="container" style={{paddingTop:"40px"}}>
+    <div className="container" style={{paddingTop:"20px"}}>
     <div class="card">
 
- 		<h5 class="card-header blue white-text text-center">
+ 		<h9 class="card-header blue white-text text-center">
     		<strong>Filter</strong>
-  		</h5>
+  		</h9>
 		<div className="row mx-md-n5">
-		  <div className="col py-3 px-md-5 bordered col-example">
+		  <div className="col py-1 px-md-5 bordered col-example">
 		  	 <label className="mdb-main-label">Business Entity</label>
 			<select class="mdb-select" searchable="Search here.." style={{marginLeft: "15px"}}>
 			  <option value="" disabled selected>Select your Business Entity</option>
 			  	{this.state.businessEntities.map((optionName,i) => <option value={i}> {optionName} </option> ) }
 			</select>
 		  </div>
-		  <div className="col py-3 px-md-5 bordered col-example">
+		  <div className="col py-1 px-md-5 bordered col-example">
 		  	 <label className="mdb-main-label">Legal Entity</label>
 			<select class="mdb-select" searchable="Search here.."  style={{marginLeft: "15px"}}>
-			  <option value="" disabled selected>Select your Legl Entity</option>
+			  <option value="" disabled selected>Select your Legal Entity</option>
 			  	{this.state.legalEntities.map((optionName,i) => <option value={i}> {optionName} </option> ) }
 			</select>
 		  </div>

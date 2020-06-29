@@ -46,6 +46,16 @@ class App extends Component {
     
   }
 
+  deleteInventory(record){
+    alert("delete record "+ record.id);
+    axios.get("https://8pjln5f1hj.execute-api.us-east-1.amazonaws.com/manage?id="+record.id,this.state.inventory).then(resp=>{
+      console.log('Inventory deleted Successfully',resp);
+      this.homeModal.updateGrid();
+    });
+    this.setState({ modal: false });
+
+  }
+
   updateName(event){
     this.setState({inventory: {...this.state.inventory, name:event.target.value}});
   }
@@ -78,7 +88,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <div>
+          <div style={{ marginBottom: '100px' }}>
             <MDBNavbar color="blue" dark expand="md">
               <MDBNavbarBrand>
                 <strong className="white-text">Firmwide Inventory</strong>
@@ -125,7 +135,7 @@ class App extends Component {
             }} openEditModal={this.openEditModal}></Home>
 
             <MDBContainer >
-          <MDBBtn color="blue" onClick={this.toggle}> ADD Inventory</MDBBtn>
+          <MDBBtn color="blue" size="sm"  onClick={this.toggle}> ADD Inventory</MDBBtn>
               <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
                 <MDBModalHeader toggle={this.toggle}>{ (this.state.inventory.id ===0)? 'ADD Inventory' : 'Edit Inventory ' + this.state.inventory.id}</MDBModalHeader>
                 <MDBModalBody>
@@ -144,18 +154,18 @@ class App extends Component {
 
           </div>
         </Router>
-        <div style={{ position: 'absolute', left: '0', bottom: '0', right: '0' }}>
-          <MDBFooter color="blue" className="font-small pt-4 mt-4">
+        <div style={{ position: 'fixed', left: '0', bottom: '0', right: '0' }}>
+          <MDBFooter color="blue" className="font-small pt-1 mt-1">
             <MDBContainer fluid className="text-center text-md-left">
               <MDBRow>
-                <MDBCol md="5">
+                <MDBCol md="10">
                   <p>
                     Note: The 'Active' view represents a live working draft and is subject to change. For the lastest published inventory, please refer
                     to Firmwide Inventory Homepage via the links.
                   </p>
                 </MDBCol>
-                <MDBCol md="6">
-                  <h5 className="title">Links</h5>
+                <MDBCol className="text-right" md="2">
+                  
                   <a href="https://www.youtube.com/c/jamesqquick" className="youtube social">
                     <FontAwesomeIcon icon={faYoutube} size="2x" />
                   </a>
@@ -173,10 +183,6 @@ class App extends Component {
                 </MDBCol>
               </MDBRow>
             </MDBContainer>
-            <div className="footer-copyright text-center py-3">
-              <MDBContainer fluid>
-              </MDBContainer>
-            </div>
           </MDBFooter>
         </div>
       </div>
