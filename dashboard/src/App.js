@@ -21,8 +21,16 @@ class App extends Component {
     this.state = { 
       isOpen: false,
       modal: false,
-      inventory:{ id:0,name:'tesfsf',desc:'fasfadf',lob:null,sublob:null}
+      inventory:{ id:0,name:'tesfsf',desc:'fasfadf',lob:null,sublob:null},
+      loggedInUser: null
+
     };
+    axios.get("https://tzy6yq8waf.execute-api.us-east-1.amazonaws.com/default/hachathon_lambda_dynamoDB_fetchall")
+    .then(resp => {
+        console.log("Logged in user>>" ,resp.data);
+        this.setState({ 'loggedInUser': resp.data[0].firstName + " " +
+        resp.data[0].lastName })
+      });
     this.addInventory = this.addInventory.bind(this);
     this.updateName = this.updateName.bind(this);
     this.updateSubLob = this.updateSubLob.bind(this);
@@ -121,6 +129,9 @@ class App extends Component {
                     <MDBFormInline waves>
                       <div className="md-form my-0">
                         <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong className="text-md-right white-text"> 
+                        {this.state.loggedInUser} </strong>
                       </div>
                     </MDBFormInline>
                   </MDBNavItem>
